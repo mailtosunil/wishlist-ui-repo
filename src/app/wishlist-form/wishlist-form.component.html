@@ -1,0 +1,42 @@
+<div class="row" *ngIf="successMessage">
+    <div class="col-sm-3 col-lg-3 col-md-3"></div>
+    <div class="col-sm-6 col-lg-6 col-md-6">
+      <div class="alert alert-success"><strong>{{successMessage}}</strong></div>
+    </div>
+    <div class="col-sm-3 col-lg-3 col-md-3"></div>
+</div>
+<div class="row" *ngIf="errorMessage">
+    <div class="col-sm-3 col-lg-3 col-md-3"></div>
+    <div class="col-sm-6 col-lg-6 col-md-6">
+      <div class="alert alert-danger"><strong>{{errorMessage}}</strong></div>
+    </div>
+    <div class="col-sm-3 col-lg-3 col-md-3"></div>
+</div>
+<div class="card" style="width: 60%; margin-left: 20%; margin-top: 5%;">
+  <div class="card-header"><strong>Add Item to Wishlist</strong></div>
+  <div class="card-body" style="text-align: center">
+    <!--<p>
+      wishlist-form works!
+    </p>-->
+    <form>
+      <div class="form-group">
+        <label for="item"></label>
+        <select class="form-control form-control-sm" name="item" [(ngModel)]="itemName">
+          <option selected>Choose...</option>
+          <option>Shoes</option>
+          <option>Mobile</option>
+          <option>Headphone</option>
+          <option>Television</option>
+        </select>
+      </div>
+      <div class="row">
+          <div class="col-sm col-lg col-md"></div>
+          <div class="col-sm col-lg col-md"></div>
+          <div class="col-sm col-lg col-md" >
+            <button class="btn-sm btn-info pull-right" (click)="addItem()">Add</button>
+          </div>
+      </div>
+    </form>
+  </div>
+  <div class="card-footer"><button class="btn-sm" (click)="backToHome()">Back</button></div>
+</div>
