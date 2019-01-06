@@ -23,10 +23,9 @@
         <label for="item"></label>
         <select class="form-control form-control-sm" name="item" [(ngModel)]="itemName">
           <option selected>Choose...</option>
-          <option>Shoes</option>
-          <option>Mobile</option>
-          <option>Headphone</option>
-          <option>Television</option>
+          <!--<option *ngFor="let tm of itemValues" value={{tm}}>{{tm}}</option>-->
+          <option *ngFor="let product of products" value={{product.id}}>{{product.name}}</option>
+
         </select>
       </div>
       <div class="row">

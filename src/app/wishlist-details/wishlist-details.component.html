@@ -20,25 +20,25 @@
     </p>-->
     <div class="row" *ngFor='let item of wishlistItems'>
       <div class="col-sm-4 col-lg-4 col-md-4">
-        <img class='center-block img-responsive' [style.width.px]='50' [style.margin.px]='2' [src]='item.itemImgUrl'
+        <img class='center-block img-responsive' [style.width.px]='50' [style.margin.px]='2' [src]='item.imgUrl'
           [title]='item.itemName'>
       </div>
       <div class="col-sm-6 col-lg-6 col-md-6">
         <div class='row'>
           <div class='col-md-4' style="text-align: left;">Name:</div>
-          <div class='col-md-8' style="text-align: left;">{{item.itemName}}</div>
+          <div class='col-md-8' style="text-align: left;">{{item.type}}</div>
         </div>
         <div class='row'>
           <div class='col-md-4' style="text-align: left;">Desc:</div>
-          <div class='col-md-8' style="text-align: left;">{{item.itemDesc}}</div>
+          <div class='col-md-8' style="text-align: left;">{{item.desc}}</div>
         </div>
         <div class='row'>
           <div class='col-md-4' style="text-align: left;">Price:</div>
-          <div class='col-md-8' style="text-align: left;">{{item.itemValue}}</div>
+          <div class='col-md-8' style="text-align: left;">{{item.value}}</div>
         </div>
       </div>
       <div class="col-sm-2 col-lg-2 col-md-2" style="margin-top: 2%;">
-          <button class="btn"><i class="fa fa-trash" (click)="deleteItem(item.itemId)"></i></button>
+          <button class="btn"><i class="fa fa-trash" (click)="deleteItem(item.id)"></i></button>
       </div>
       <div class="col-sm-12 col-lg-12 col-md-12"><hr></div>
     </div>

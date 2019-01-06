@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { WishlistService } from '../wishlist.service';
+import { WishlistService } from '../service/wishlist.service';
 import { IItem } from '../item';
 import { HttpErrorResponse } from '@angular/common/http';
 import { throwError } from 'rxjs';
@@ -27,11 +27,11 @@ export class WishlistDetailsComponent implements OnInit {
     this.router.navigateByUrl('/home');
   }
 
-  deleteItem(itemId: number) {
+  deleteItem(id: number) {
     this.errorMessage = '';
     this.successMessage='';
     //console.log("Item selected to delete: " + itemId);
-    this.wishlistService.deleteItem(itemId).subscribe(
+    this.wishlistService.deleteItem(id).subscribe(
       results => {
         //console.log("Response for delete: " + results);
         this.successMessage = "Item deleted from wishlist";
@@ -48,6 +48,7 @@ export class WishlistDetailsComponent implements OnInit {
     this.wishlistService.getWishlistItems().subscribe(
       items => {
         this.wishlistItems = items;
+        //console.log("----> ", this.wishlistItems);
       },
       error => this.errorMessage = error.statusText
     );

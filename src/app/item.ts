@@ -1,7 +1,7 @@
 export class IItem {
-    itemId: number;
-    itemName: string;
-    itemValue: number;
-    itemImgUrl: string;
-    itemDesc: string;
+    id: number;
+    type: string;
+    value: number;
+    imgUrl: string;
+    desc: string;
 }

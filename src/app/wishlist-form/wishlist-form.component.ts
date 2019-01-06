@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { IItem } from '../item';
-import { WishlistService } from '../wishlist.service';
+import { WishlistService } from '../service/wishlist.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import { throwError } from 'rxjs';
+import { Product } from '../product';
 
 @Component({
   selector: 'app-wishlist-form',
@@ -15,45 +16,48 @@ export class WishlistFormComponent implements OnInit {
   errorMessage: string = '';
   successMessage: string = '';
   item: IItem;
+  itemValues:string[] = ['Shoes', 'Headphone', 'Television', 'Mobile'];
+  products: Product[] = [];
   constructor(private router: Router, private wishlistService: WishlistService) { }
 
   ngOnInit() {
+    this.getProducts();
   }
 
   addItem(): void {
     this.errorMessage = '';
-    this.successMessage='';
-    //console.log("item selected: ", this.itemName);
-    if(this.itemName === '' || this.itemName === 'Choose...'){
+    this.successMessage = '';
+    console.log("item selected: ", this.itemName);
+    if (this.itemName === '' || this.itemName === 'Choose...') {
       this.errorMessage = "Please select Item";
-    }else{
-      if (this.itemName === 'Shoes') {
+    } else {
+     /* if (this.itemName === 'Shoes') {
         this.item = new IItem();
-        this.item.itemName = this.itemName;
-        this.item.itemDesc = 'Puma Shoes';
-        this.item.itemImgUrl = 'https://openclipart.org/image/300px/svg_to_png/120337/xbox-controller_01.png';
-        this.item.itemValue = 3500;
+        this.item.type = this.itemName;
+        this.item.desc = 'Puma Shoes';
+        this.item.imgUrl = 'https://openclipart.org/image/300px/svg_to_png/120337/xbox-controller_01.png';
+        this.item.value = 3500;
       } else if (this.itemName === 'Headphone') {
         this.item = new IItem();
-        this.item.itemName = this.itemName;
-        this.item.itemDesc = 'Sony Headphone';
-        this.item.itemImgUrl = 'https://openclipart.org/image/300px/svg_to_png/27070/egore911_saw.png';
-        this.item.itemValue = 1500;
+        this.item.type = this.itemName;
+        this.item.desc = 'Sony Headphone';
+        this.item.imgUrl = 'https://openclipart.org/image/300px/svg_to_png/27070/egore911_saw.png';
+        this.item.value = 1500;
       } else if (this.itemName === 'Mobile') {
         this.item = new IItem();
-        this.item.itemName = this.itemName;
-        this.item.itemDesc = 'Nokia Mobile';
-        this.item.itemImgUrl = 'https://openclipart.org/image/300px/svg_to_png/73/rejon_Hammer.png';
-        this.item.itemValue = 20500;
+        this.item.type = this.itemName;
+        this.item.desc = 'Nokia Mobile';
+        this.item.imgUrl = 'https://openclipart.org/image/300px/svg_to_png/73/rejon_Hammer.png';
+        this.item.value = 20500;
       } else if (this.itemName === 'Television') {
         this.item = new IItem();
-        this.item.itemName = this.itemName;
-        this.item.itemDesc = 'LG Television';
-        this.item.itemImgUrl = 'https://openclipart.org/image/300px/svg_to_png/58471/garden_cart.png';
-        this.item.itemValue = 40500;
-      }
+        this.item.type = this.itemName;
+        this.item.desc = 'LG Television';
+        this.item.imgUrl = 'https://openclipart.org/image/300px/svg_to_png/58471/garden_cart.png';
+        this.item.value = 40500;
+      }*/
       //console.log("Item sent from component: ", this.item);
-      this.wishlistService.addItem(this.item).subscribe(
+      this.wishlistService.addItem(this.itemName).subscribe(
         results => {
           //console.log("Response for add: " + results);
           this.successMessage = "Item added to wishlist";
@@ -68,6 +72,16 @@ export class WishlistFormComponent implements OnInit {
   }
   backToHome(): void {
     this.router.navigateByUrl('/home');
+  }
+
+  getProducts():void {
+    this.wishlistService.getProducts().subscribe(
+      products => {
+        this.products = products;
+        console.log("Products ----> ", this.products);
+      },
+      error => this.errorMessage = error.statusText
+    );
   }
 
   private handleError(err: HttpErrorResponse) {
