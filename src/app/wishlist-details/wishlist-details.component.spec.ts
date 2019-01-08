@@ -28,7 +28,7 @@ describe('WishlistDetailsComponent', () => {
       itemImgUrl: 'https://openclipart.org/image/300px/svg_to_png/120337/xbox-controller_01.png',
       itemValue: 3500
     }];
-    mockWishlistService = jasmine.createSpyObj(['getWishlistItems', 'deleteItem', 'addItem']);
+    mockWishlistService = jasmine.createSpyObj(['getWishlistItems', 'deleteItem']);
     TestBed.configureTestingModule({
       declarations: [WishlistDetailsComponent],
       providers: [{ provide: WishlistService, useValue: mockWishlistService }, { provide: Router, useClass: MockRouter }, { provide: ActivatedRoute, useClass: MockActivatedRoute }],
@@ -39,19 +39,27 @@ describe('WishlistDetailsComponent', () => {
 
   beforeEach(() => {
     fixture = TestBed.createComponent(WishlistDetailsComponent);
+    mockWishlistService.getWishlistItems.and.returnValue(of(items));
     component = fixture.componentInstance;
     fixture.detectChanges();
-   // wishlistService = TestBed.get(WishlistService);
     router = TestBed.get(Router);
   });
 
-  it('should create', () => {
+  it('should create wishlist-details', () => {
     expect(component).toBeTruthy();
   });
-
-  it('should set wishlist items correctly from service', () => {
-    mockWishlistService.getWishlistItems.and.returnValue(of(items))
-    fixture.detectChanges();
-    expect(fixture.componentInstance.wishlistItems.length).toBe(1);
+  it('should have page title', ()=>{
+    const wishlistForm = fixture.debugElement.componentInstance;
+    expect(wishlistForm.pageTitle).toEqual('Wishlist Page');
   });
+
+  it('should have valid item list in fetchWishlistItems', ()=>{
+    mockWishlistService.getWishlistItems.and.returnValue(of(items));
+    const wishlistForm = fixture.debugElement.componentInstance;
+    expect(wishlistForm.wishlistItems.length).toEqual(1);
+  });
+  it('should delete an item to wishlist deleteItem',()=>{
+    //mockWishlistService.deleteItem(101).returnValue(items);
+
+  })
 });

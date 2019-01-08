@@ -16,11 +16,12 @@ export class WishlistDetailsComponent implements OnInit {
   imageMargin = 2;
   successMessage: string = '';
   stringResult: string = '';
-
+  pageTitle:string='';
   constructor(private router: Router, private wishlistService: WishlistService) { }
 
   ngOnInit() {
     this.fetchWishlistItems();
+    this.pageTitle='Wishlist Page';
   }
 
   backToHome(): void {

@@ -18,10 +18,12 @@ export class WishlistFormComponent implements OnInit {
   item: IItem;
   itemValues:string[] = ['Shoes', 'Headphone', 'Television', 'Mobile'];
   products: Product[] = [];
+  pageTitle:string='';
   constructor(private router: Router, private wishlistService: WishlistService) { }
 
   ngOnInit() {
     this.getProducts();
+    this.pageTitle='Add Item to Wishlist';
   }
 
   addItem(): void {
@@ -29,34 +31,8 @@ export class WishlistFormComponent implements OnInit {
     this.successMessage = '';
     console.log("item selected: ", this.itemName);
     if (this.itemName === '' || this.itemName === 'Choose...') {
-      this.errorMessage = "Please select Item";
+      this.errorMessage = "Please select Product";
     } else {
-     /* if (this.itemName === 'Shoes') {
-        this.item = new IItem();
-        this.item.type = this.itemName;
-        this.item.desc = 'Puma Shoes';
-        this.item.imgUrl = 'https://openclipart.org/image/300px/svg_to_png/120337/xbox-controller_01.png';
-        this.item.value = 3500;
-      } else if (this.itemName === 'Headphone') {
-        this.item = new IItem();
-        this.item.type = this.itemName;
-        this.item.desc = 'Sony Headphone';
-        this.item.imgUrl = 'https://openclipart.org/image/300px/svg_to_png/27070/egore911_saw.png';
-        this.item.value = 1500;
-      } else if (this.itemName === 'Mobile') {
-        this.item = new IItem();
-        this.item.type = this.itemName;
-        this.item.desc = 'Nokia Mobile';
-        this.item.imgUrl = 'https://openclipart.org/image/300px/svg_to_png/73/rejon_Hammer.png';
-        this.item.value = 20500;
-      } else if (this.itemName === 'Television') {
-        this.item = new IItem();
-        this.item.type = this.itemName;
-        this.item.desc = 'LG Television';
-        this.item.imgUrl = 'https://openclipart.org/image/300px/svg_to_png/58471/garden_cart.png';
-        this.item.value = 40500;
-      }*/
-      //console.log("Item sent from component: ", this.item);
       this.wishlistService.addItem(this.itemName).subscribe(
         results => {
           //console.log("Response for add: " + results);
